@@ -7,12 +7,12 @@ class Program
 
     static void Main(string[] args)
     {
-        IEnumerable<int> numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-
-        foreach (int i in Select(numbers, i => i * 2))
-        {
-            Console.WriteLine(i);
-        }
+        Console.WriteLine(0);
+        IEnumerable<int> enumerator = Select<int, int>(null, x => x * 2);
+        Console.WriteLine(1);
+        IEnumerator<int> iterator = enumerator.GetEnumerator();
+        Console.WriteLine(2);
+        iterator.MoveNext();
     }
 
     static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
@@ -20,9 +20,15 @@ class Program
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(selector);
 
-        foreach (var item in source)
+        return Impl(source, selector);
+
+        static IEnumerable<TResult> Impl<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            yield return selector(item);
+
+            foreach (var item in source)
+            {
+                yield return selector(item);
+            }
         }
     }
 }
