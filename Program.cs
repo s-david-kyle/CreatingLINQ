@@ -3,28 +3,29 @@
 class Program
 {
 
-    IEnumerable<Person> people = new List<Person>
-    {
-        new Person { Name = "John" },
-        new Person { Name = "Jane" },
-        new Person { Name = "Jack" }
-    };
 
-    IEnumerable<string> names = people.Select(p => p.Name);
 
     static void Main(string[] args)
     {
-        static IEnumerable<TResult> Select<TSource, TResult>(IEnumeable<TSource> source)
+        IEnumerable<int> numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+        foreach (int i in Select(numbers, i => i * 2))
         {
-            yield return 1;
-            yield return 2;
-            yield return 3;
+            Console.WriteLine(i);
+        }
+    }
+
+    static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
+    {
+        foreach (var item in source)
+        {
+            yield return selector(item);
         }
     }
 }
 
-class Person
-{
-    public string Name { get; set; }
 
-}
+
+
+
+
