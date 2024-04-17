@@ -8,18 +8,13 @@ class Program
     static void Main(string[] args)
     {
         IEnumerable<int> e = GetValues();
-        using IEnumerator<int> enumerator = e.GetEnumerator();
+        IEnumerator<int> enumerator = e.GetEnumerator();
+        Console.WriteLine(enumerator);
         while (enumerator.MoveNext())
         {
+            Console.WriteLine(enumerator.Current);
             int i = enumerator.Current;
             Console.WriteLine(i);
-        }
-
-
-        foreach (int i in GetValues())
-        {
-            Console.WriteLine(i);
-
         }
 
 
