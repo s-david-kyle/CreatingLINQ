@@ -17,6 +17,9 @@ class Program
 
     static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
     {
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(selector);
+
         foreach (var item in source)
         {
             yield return selector(item);
