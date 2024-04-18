@@ -7,12 +7,9 @@ class Program
 
     static void Main(string[] args)
     {
-        Console.WriteLine(0);
-        IEnumerable<int> enumerator = Select<int, int>(null, x => x * 2);
-        Console.WriteLine(1);
-        IEnumerator<int> iterator = enumerator.GetEnumerator();
-        Console.WriteLine(2);
-        iterator.MoveNext();
+        IEnumerable<int> source = Enumerable.Range(0, 1000).ToArray();
+        Console.WriteLine(Enumerable.Select(source, x => x * 2).Sum());
+        Console.WriteLine(Select(source, x => x * 2).Sum());
     }
 
     static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
